@@ -47,13 +47,18 @@
 
 
       <div class="container">
-        <div class="row text-center fixed-bottom mt-5" style="padding: 30px; margin-bottom: 140px;">
+        <div class="row text-center fixed-bottom mt-5" style="padding: 30px; margin-bottom: 40px;">
+
+          <div class="col" style="display: none;" id="history">
+            <a @click="history" href="#" type="button" class="btn btn-secondary shadow shadow-lg"><i class="bi bi-card-checklist" style="margin-right: 10px;"></i>History</a>
+          </div>
+
           <div class="col">
             <div class="btn-group" id="checkout" style="display: none;" role="group" aria-label="Basic example">
               <!-- Tombol Checkout -->
               <a @click="removeCheckout" id="checkoutButton1" v-if="listBeli.length !== 0" href="#" type="button" class="btn btn-danger shadow buttonMie shadow-lg" data-bs-toggle="modal" data-bs-target="#checkoutModal"><i class="bi bi-wallet2" style="margin-right: 10px;"></i>Checkout</a>
               <!-- Modal -->
-              <div class="modal fade" style="margin-top: 200px;" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModal" aria-hidden="true">
+              <div class="modal fade" style="margin-top: 100px;" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModal" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -87,14 +92,15 @@
                                 </div>
                               </div>
 
-                              <h6 class="mt-5" style="font-family: 'Montserrat';">Total Pembayaran: <span style="color: darkolivegreen;">Rp. {{totalSemua.toLocaleString()}}</span></h6>
+                              <h6 class="mt-5" style="font-family: 'Montserrat';">Total Pembayaran: <span style="color: darkgreen;">Rp. {{totalSemua.toLocaleString()}}</span></h6>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button @click="checkout" type="button" class="btn btn-danger" data-bs-dismiss="modal">Checkout Sekarang!</button>
+                      <a href="#" @click="checkout" type="button" class="btn btn-danger" data-bs-dismiss="modal">Checkout Sekarang!</a>
+                      <!-- <button @click="checkout" type="button" class="btn btn-danger" data-bs-dismiss="modal">Checkout Sekarang!</button> -->
                       <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                     </div>
                   </div>
@@ -106,6 +112,7 @@
               <button onclick="tombolMinumanFunction()" type="button" class="btn btn-primary shadow buttonMinuman">Minuman</button> -->
             </div>
           </div>
+
         </div>
         <div id="buttonSemua" class="row text-center fixed-bottom shadow" style="padding: 10px;">
           <div class="col">
@@ -124,13 +131,13 @@
       <div class="container">
         <section id="mie">
         <div class="row text-center" style="margin-bottom: 80px;">
-          <div class="col-6" style="margin-top: 30px;">
+          <div class="col-6" style="margin-top: 30px; margin-right: 0; margin-left: 0;">
             <div class="card shadow" style="width: 10rem;">
               <img src="/img/i MIE ANGEL.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title" id="mieJengkel">Mie Jengkel</h5>
                 <h6 style="color: darkgreen; font-family: 'Montserrat';">Rp. {{hargaJengkel.toLocaleString()}}</h6>
-                <label for="">Level</label>
+                <label  style="font-family: 'Montserrat';" for="">Level</label>
                 <!-- <input type="number" class="form-control form-control-sm" id="mieJengkelJumlah" placeholder="maunya berapa"> -->
                 <!-- <select class="form-select form-select-sm" id="mieJengkelLevel" aria-label=".form-select-sm example">
                   <option selected>1</option>
@@ -151,7 +158,7 @@
                   </div>
                 </div>
                 <br>
-                <label for="">Beli berapa nih</label>
+                <label  style="font-family: 'Montserrat';" for="">Jumlah</label>
                 <div class="row">
                   <div class="col-4">
                     <h5 style="color: darkgreen;">{{ counterBeliJengkel }}</h5>
@@ -166,18 +173,18 @@
                 <!-- <input class="form-control form-control-sm" id="mieJengkelJumlah" type="number" placeholder="maunya berapa" aria-label=".form-control-sm example"> -->
                 <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                 <br>
-                <a @click="keranjangJengkel" class="btn btn-primary" id="keranjangJengkel">Masukin keranjang</a>
+                <a @click="keranjangJengkel" class="btn btn-primary" id="keranjangJengkel">+ Keranjang</a>
               </div>
             </div>
           </div>
 
-          <div class="col-6" style="margin-top: 30px;">
+          <div class="col-6" style="margin-top: 30px; margin-right: 0; margin-left: 0;">
             <div class="card shadow" style="width: 10rem;">
               <img src="img/Mie-Iblis-Mie-Gacoan-Malang-Guidance.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title" id="mieKesel">Mie Kesel</h5>
-                <h6 style="color: darkgreen;">Rp. {{hargaKesel.toLocaleString()}}</h6>
-                <label for="">Level</label>
+                <h6 style="color: darkgreen; font-family: 'Montserrat';">Rp. {{hargaKesel.toLocaleString()}}</h6>
+                <label style="font-family: 'Montserrat';" for="">Level</label>
                 <div class="row">
                   <div class="col-4">
                     <h5>{{ counterLevelKesel }}</h5>
@@ -191,7 +198,7 @@
                   </div>
                 </div>
                 <br>
-                <label for="">Beli berapa nih</label>
+                <label style="font-family: 'Montserrat';" for="">Jumlah</label>
                 <div class="row">
                   <div class="col-4">
                     <h5 style="color: darkgreen;">{{ counterBeliKesel }}</h5>
@@ -204,7 +211,7 @@
                   </div>
                 </div>
                 <br>
-                <a @click="keranjangKesel" class="btn btn-primary">Masukin keranjang</a>
+                <a @click="keranjangKesel" class="btn btn-primary">+ Keranjang</a>
               </div>
             </div>
           </div>
@@ -217,8 +224,8 @@
               <img src="img/New Project (9).png" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title" id="mieGajelas">Mie Gajelas</h5>
-                <h6 style="color: darkgreen;">Rp. {{hargaGajelas.toLocaleString()}}</h6>
-                <label for="">Level</label>
+                <h6 style="color: darkgreen; font-family: 'Montserrat';">Rp. {{hargaGajelas.toLocaleString()}}</h6>
+                <label for="" style="font-family: 'Montserrat';">Level</label>
                 <div class="row">
                   <div class="col-4">
                     <h5>{{ counterLevelGajelas }}</h5>
@@ -232,7 +239,7 @@
                   </div>
                 </div>
                 <br>
-                <label for="">Beli berapa nih</label>
+                <label for="" style="font-family: 'Montserrat';">Jumlah</label>
                 <div class="row">
                   <div class="col-4">
                     <h5 style="color: darkgreen;">{{ counterBeliGajelas }}</h5>
@@ -245,7 +252,7 @@
                   </div>
                 </div>
                 <br>
-                <a @click="keranjangGajelas" id="keranjangGajelas" class="btn btn-primary">Masukin keranjang</a>
+                <a @click="keranjangGajelas" id="keranjangGajelas" class="btn btn-primary">+ Keranjang</a>
               </div>
             </div>
           </div>
@@ -258,8 +265,8 @@
               <img src="img/d10ffefba14db89f230b29f234fba00f.jpeg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title" id="mieIndomie">Mie Indomie</h5>
-                <h6 style="color: darkgreen;">Rp. {{hargaIndomie.toLocaleString()}}</h6>
-                <label for="">Level</label>
+                <h6 style="color: darkgreen; font-family: 'Montserrat';">Rp. {{hargaIndomie.toLocaleString()}}</h6>
+                <label for="" style="font-family: 'Montserrat';">Level</label>
                 <div class="row">
                   <div class="col-4">
                     <h5>{{ counterLevelIndomie }}</h5>
@@ -273,7 +280,7 @@
                   </div>
                 </div>
                 <br>
-                <label for="">Beli berapa nih</label>
+                <label style="font-family: 'Montserrat';" for="">Jumlah</label>
                 <div class="row">
                   <div class="col-4">
                     <h5 style="color: darkgreen;">{{ counterBeliIndomie }}</h5>
@@ -286,7 +293,7 @@
                   </div>
                 </div>
                 <br>
-                <a @click="keranjangIndomie" id="keranjangIndomie" class="btn btn-primary">Masukin keranjang</a>
+                <a @click="keranjangIndomie" id="keranjangIndomie" class="btn btn-primary">+ Keranjang</a>
               </div>
             </div>
           </div>
@@ -317,7 +324,7 @@
               <th v-if="listBeli.length === 0" class="text-center mt-5" colspan="5"> <p style="color: rgb(114, 114, 114);">Kayanya Kamu belum pesan deh</p></th>
             </tr>
             <tr v-for="list, index in listBeli">
-              <th scope="row">{{list.nama}} <br> Harga <span  style="color: green; font-family: 'Montserrat';">Rp. {{list.harga.toLocaleString()}}</span></th>
+              <th scope="row">{{list.nama}} <br><span  style="color: green; font-family: 'Montserrat';">Rp. {{list.harga.toLocaleString()}}</span></th>
               <!-- <td style="color: rgb(192, 106, 0);"></td> -->
               <td>Level {{list.level}} <br> <span>Beli {{list.jumlah}}</span></span><td>
               <!-- <td>Beli {{list.jumlah}}</td> -->
@@ -378,7 +385,7 @@
           </tbody>
         </table>
 
-        <h6 v-if="listBeli.length !== 0" class="text-center">Total Semua: <span style="font-family: 'Montserrat';">Rp. {{totalSemua.toLocaleString()}}</span></h6>
+        <h6 v-if="listBeli.length !== 0" class="text-center">Total Semua: <span style="font-family: 'Montserrat';">Rp.  {{totalSemua.toLocaleString()}}</span></h6>
       
       </section>
 
@@ -386,8 +393,8 @@
         <div class="container">
           <div class="row text-center">
             <div class="col">
-              <h1 style="font-family: 'Montserrat';">{{atasNama}}, Meja: {{meja}}</h1>
-              <p style="font-family: 'Montserrat';">Pelayan segera ke Meja kamu, <br> Siapkan uang sebesar <span style="color: darkolivegreen;">Rp. {{totalSemua.toLocaleString()}}</span> <br><br><br> Terima Kasih:)</p>
+              <h1 style="font-family: 'Montserrat';">{{atasNama}}, Meja {{meja}}</h1>
+              <p style="font-family: 'Montserrat';">Pelayan segera ke Meja kamu, <br> Siapkan uang sebesar <span style="color: darkgreen;">Rp. {{totalSemua.toLocaleString()}}</span> <br><br><br> Terima Kasih:)</p>
             </div>
           </div>
 
@@ -412,6 +419,66 @@
           </div>
 
         </div>
+      </section>
+
+
+      <section id="historyPage" style="padding: 20px; display: none;">
+        <div class="row">
+          <div class="col">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th v-if="forHistory.length === 0" class="text-center mt-5" colspan="5"> <p style="color: rgb(114, 114, 114);">Belum pernah pesan</p></th>
+                </tr>
+                <tr v-for="hst, index in forHistory">
+                  <td style="font-family: 'Montserrat';">{{ hst.nama }}</td>
+                  <td style="font-family: 'Montserrat'; color: darkgreen;">Rp. {{hst.total.toLocaleString()}}</td>
+                  <td><a @click="hstDetail(index)" href="#" class="btn btn-primary badge">Detail</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+      </section>
+
+      <!-- <section style="padding: 20px;" id="detailHistoryPage">
+        <table class="table">
+          <tbody>
+            <tr v-for="list, index in forHistory.detail">
+              <th scope="row">{{list.nama}} <br><span  style="color: green; font-family: 'Montserrat';">Rp. {{list.harga.toLocaleString()}}</span></th>
+              <td style="color: rgb(192, 106, 0);"></td>
+              <td>Level {{list.level}} <br> <span>Beli {{list.jumlah}}</span></span><td>
+              <td>Beli {{list.jumlah}}</td>
+              <td style="color: rgb(0, 0, 0); font-weight: bold;">Total <br> Rp.{{list.total.toLocaleString()}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section> -->
+
+      <section style="display: none; padding: 20px;" id="detailHistoryPage">
+        <div></div>
+        <table class="table">
+          <tbody id="tbodyDetail">
+            <!-- <tr>
+              <td><th scope="row"> <br><span  style="color: green; font-family: 'Montserrat';">Rp. 40,000s</span></th></td>
+              <td>Level 5<br> <span>Beli 9</span></span><td>
+                <td style="color: rgb(0, 0, 0); font-weight: bold;">Total <br> Rp. 90,000</td>
+            </tr> -->
+          </tbody>
+        </table>
+        
+        <!-- <table class="table">
+          <tbody>
+            <tr v-for="list, index in forHistory.detail">
+              <th scope="row">{{list.nama}} <br><span  style="color: green; font-family: 'Montserrat';">Rp. {{list.harga.toLocaleString()}}</span></th>
+              <td style="color: rgb(192, 106, 0);"></td>
+              <td>Level {{list.level}} <br> <span>Beli {{list.jumlah}}</span></span><td>
+              <td>Beli {{list.jumlah}}</td>
+              <td style="color: rgb(0, 0, 0); font-weight: bold;">Total <br> Rp.{{list.total.toLocaleString()}}</td>
+            </tr>
+          </tbody>
+        </table> -->
       </section>
 
     </div>

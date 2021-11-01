@@ -35,13 +35,17 @@ const app = Vue.createApp({
 
       tmpIndex: 0,
       atasNama: '',
-      meja: 1
+      meja: 1,
+
+      forHistory: [],
+      historyDetail: []
 
     }
   },
   methods: {
     notif() {
       const notif = document.getElementById('notif')
+      notif.style.display = 'block'
 
       notif.innerHTML = `      <div class="alert alert-success alert-dismissible fade show notif" style="padding: 10px;" role="alert">
         <strong>${this.mieDiKeranjang}</strong> masuk keranjang:)
@@ -172,6 +176,7 @@ const app = Vue.createApp({
       this.counterLevelKesel = 1
       this.mieDiKeranjang = tmp.nama
       this.notif()
+      
     },
 
 
@@ -387,7 +392,10 @@ const app = Vue.createApp({
       return listContentP
     },
 
+
+
     checkout(){
+      document.getElementById('history').style.display = 'none'
       let kamus = 'abcdefghijklmnopqrstuvwxyz'
       let counter = 0
       for (let i = 0; i < this.atasNama.length; i++) {
@@ -406,8 +414,11 @@ const app = Vue.createApp({
       if (this.atasNama === '' || counter === 0) {
         alert('Nama harus di isi')
         document.getElementById('checkoutButton1').style.display = 'block'
-      } else if(this.atasNama === '' || counter === 0 || counter < 3) {
+      } else if(counter < 3) {
         alert('Nama minimal 3 huruf')
+        document.getElementById('checkoutButton1').style.display = 'block'
+      } else if(this.atasNama.length > 15) {
+        alert('Maksimal 15 huruf')
         document.getElementById('checkoutButton1').style.display = 'block'
       } else {
         console.log('checkout');
@@ -421,6 +432,46 @@ const app = Vue.createApp({
         document.getElementById('buttonSemua').style.display = 'none'
         document.getElementById('checkoutButton1').style.display = 'none'
         document.getElementById('buttonSemua2').style.display = 'block'
+
+        // masuk history
+        let tmp = {
+          nama: this.atasNama,
+          total: this.totalSemua,
+        }
+
+        this.historyDetail.push([this.listBeli])
+        console.log(this.historyDetail);
+
+        this.forHistory.push(tmp)
+
+      //   <tr>
+      //   <td><th scope="row"> <br><span  style="color: green; font-family: 'Montserrat';">Rp. 40,000s</span></th></td>
+      //   <td>Level 5<br> <span>Beli 9</span></span><td>
+      //     <td style="color: rgb(0, 0, 0); font-weight: bold;">Total <br> Rp. 90,000</td>
+      // </tr>
+        
+        // for (let i = 0; i < this.historyDetail.length; i++) {
+        //   // console.log(this.historyDetail[i]);
+        //   for (let j = 0; j < this.historyDetail[i].length; j++) {
+        //     console.log(this.historyDetail[i][j]);
+        //     for (let k = 0; k < this.historyDetail[i][j].length; k++) {
+        //       // console.log(this.historyDetail[i][j][k].nama);
+        //       document.getElementById('tbodyDetail').innerHTML = ''
+        //       document.getElementById('tbodyDetail').innerHTML += `        <tr>
+        //       <td><th scope="row"> ${this.historyDetail[i][j][k].nama} <br><span  style="color: green; font-family: 'Montserrat';">Rp. ${this.historyDetail[i][j][k].harga.toLocaleString()}</span></th></td>
+        //       <td>Level ${this.historyDetail[i][j][k].level}<br> <span>Beli ${this.historyDetail[i][j][k].jumlah}</span></span><td>
+        //         <td style="color: rgb(0, 0, 0); font-weight: bold;">Total <br> Rp. ${this.historyDetail[i][j][k].total.toLocaleString()}</td>
+        //     </tr>`
+        //     }
+            
+        //   }
+          
+        // }
+        
+
+        tmp = {}
+
+        
       }
 
     },
@@ -452,7 +503,43 @@ const app = Vue.createApp({
       }
     },
 
+    history(){
+      document.getElementById('history').style.display = 'none'
+      document.getElementById('historyPage').style.display = 'block'
+      console.log('history');
+      document.getElementById('listP2').textContent = 'History Pesanan'
+      const cart = document.getElementById('cart').style.display = 'none'
+      const checkout = document.getElementById('checkout').style.display = 'none'
+
+    },
+
+    hstDetail(i) {
+      document.getElementById('tbodyDetail').innerHTML = ''
+      this.tmpIndex = i
+      document.getElementById('detailHistoryPage').style.display = 'block'
+      console.log(this.tmpIndex);
+
+      // for (let i = 0; i < this.historyDetail.length; i++) {
+        // console.log(this.historyDetail[i]);
+        for (let j = 0; j < this.historyDetail[i].length; j++) {
+          // console.log(this.historyDetail[i][j]);
+          for (let k = 0; k < this.historyDetail[i][j].length; k++) {
+            console.log(this.historyDetail[i][j][k].nama);
+            document.getElementById('tbodyDetail').innerHTML += `        <tr>
+            <td><th scope="row"> ${this.historyDetail[i][j][k].nama} <br><span  style="color: green; font-family: 'Montserrat';">Rp. ${this.historyDetail[i][j][k].harga.toLocaleString()}</span></th></td>
+            <td>Level ${this.historyDetail[i][j][k].level}<br> <span>Beli ${this.historyDetail[i][j][k].jumlah}</span></span><td>
+              <td style="color: rgb(0, 0, 0); font-weight: bold;">Total <br> Rp. ${this.historyDetail[i][j][k].total.toLocaleString()}</td>
+          </tr>`
+          }
+          
+        }
+        
+      // }
+    },
+
     Kembali(){
+      // document.getElementById('detailHistoryPage').style.display = 'none'
+      document.getElementById('history').style.display = 'none'
       document.getElementById('checkoutButton1').style.display = 'block'
       // const listP = document.getElementById('listP').innerHTML = 'block'
       // console.log('kembali');
@@ -473,6 +560,9 @@ const app = Vue.createApp({
     },
 
     mieButton() {
+      // document.getElementById('detailHistoryPage').style.display = 'none'
+      document.getElementById('historyPage').style.display = 'none'
+      document.getElementById('history').style.display = 'none'
       const checkout = document.getElementById('checkout').style.display = 'none'
       console.log('mie');
       const mie = document.getElementById('mie').style.display = 'block'
@@ -482,21 +572,29 @@ const app = Vue.createApp({
       document.getElementById('buttonSemua').style.display = 'block'
     },
     minumanButton() {
+      // document.getElementById('detailHistoryPage').style.display = 'none'
+      document.getElementById('historyPage').style.display = 'none'
+      document.getElementById('history').style.display = 'none'
       this.default()
       console.log('minuman');
       const listP = document.getElementById('listP').style.display = 'block'
       document.getElementById('listP2').style.display = 'none'
     },
     cartButton() {
+      // document.getElementById('detailHistoryPage').style.display = 'none'
+      document.getElementById('historyPage').style.display = 'none'
+      document.getElementById('history').style.display = 'block'
       this.default()
       const checkout = document.getElementById('checkout').style.display = 'block'
       const mie = document.getElementById('mie')
       const listP = document.getElementById('listP').style.display = 'none'
       document.getElementById('listP2').style.display = 'block'
+      document.getElementById('listP2').textContent = 'Hai, ini pesanan kamu.'
       const cart = document.getElementById('cart').style.display = 'block'
       
 
       mie.style.display = 'none'
+      const notif = document.getElementById('notif').style.display = 'none'
 
       console.log('cart');
     }

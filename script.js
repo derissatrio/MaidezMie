@@ -37,7 +37,9 @@ const app = Vue.createApp({
       atasNama: '',
       meja: 1,
 
+      // dbLocal: localStorage.setItem('History', []),
       forHistory: [],
+
       historyDetail: []
 
     }
@@ -392,9 +394,41 @@ const app = Vue.createApp({
       return listContentP
     },
 
+    localDatabase(){
+      const HistoryDB = localStorage.setItem('History', this.forHistory);
+      
+    },
+    
+    saveDataLocal(){
+      localStorage.setItem('HistoryLuar', JSON.stringify(this.forHistory))
+      localStorage.setItem('HistoryDalam', JSON.stringify(this.historyDetail))
+    },
+
+    getDataHstLuar(){
+      return JSON.parse(localStorage.getItem('HistoryLuar')) 
+    },
+
+    getDataHstDalam(){
+      return JSON.parse(localStorage.getItem('HistoryDalam'))
+    },
+
 
 
     checkout(){
+      // console.log(this.listBeli[0].nama);
+      let tmp = ``
+      for (let i = 0; i < this.listBeli.length; i++) {
+        console.log(this.listBeli[i]);
+        tmp += `            <tr>
+        <td style="margin-right= 10px;"><th scope="row"> ${this.listBeli[i].nama} <br><span  style="color: green; font-family: 'Montserrat';">Rp. ${this.listBeli[i].harga.toLocaleString()} </span></th></td>
+        <td style="margin-right= 10px;">Level ${this.listBeli[i].level} <br> <span>Beli ${this.listBeli[i].jumlah} </span></span><td>
+          <td style="color: rgb(0, 0, 0); font-weight: bold;">Total <br> Rp. ${this.listBeli[i].total.toLocaleString()}</td>
+      </tr>`
+      }
+
+      document.getElementById('listFinal').innerHTML = tmp
+      tmp = ''
+
       document.getElementById('history').style.display = 'none'
       let kamus = 'abcdefghijklmnopqrstuvwxyz'
       let counter = 0
@@ -443,33 +477,18 @@ const app = Vue.createApp({
         console.log(this.historyDetail);
 
         this.forHistory.push(tmp)
-
-      //   <tr>
-      //   <td><th scope="row"> <br><span  style="color: green; font-family: 'Montserrat';">Rp. 40,000s</span></th></td>
-      //   <td>Level 5<br> <span>Beli 9</span></span><td>
-      //     <td style="color: rgb(0, 0, 0); font-weight: bold;">Total <br> Rp. 90,000</td>
-      // </tr>
-        
-        // for (let i = 0; i < this.historyDetail.length; i++) {
-        //   // console.log(this.historyDetail[i]);
-        //   for (let j = 0; j < this.historyDetail[i].length; j++) {
-        //     console.log(this.historyDetail[i][j]);
-        //     for (let k = 0; k < this.historyDetail[i][j].length; k++) {
-        //       // console.log(this.historyDetail[i][j][k].nama);
-        //       document.getElementById('tbodyDetail').innerHTML = ''
-        //       document.getElementById('tbodyDetail').innerHTML += `        <tr>
-        //       <td><th scope="row"> ${this.historyDetail[i][j][k].nama} <br><span  style="color: green; font-family: 'Montserrat';">Rp. ${this.historyDetail[i][j][k].harga.toLocaleString()}</span></th></td>
-        //       <td>Level ${this.historyDetail[i][j][k].level}<br> <span>Beli ${this.historyDetail[i][j][k].jumlah}</span></span><td>
-        //         <td style="color: rgb(0, 0, 0); font-weight: bold;">Total <br> Rp. ${this.historyDetail[i][j][k].total.toLocaleString()}</td>
-        //     </tr>`
-        //     }
-            
-        //   }
-          
-        // }
         
 
         tmp = {}
+
+
+        // LocalStorage
+        this.saveDataLocal()
+        // this.forHistory = this.getDataHstDalam()
+        // this.historyDetail = this.getDataHstLuar()
+        
+
+
 
         
       }
@@ -513,8 +532,27 @@ const app = Vue.createApp({
 
     },
 
+    hstDelete(i){
+      console.log(i);
+      this.forHistory = this.forHistory.filter((hst, index)=> index !== i)
+    },
+
     hstDetail(i) {
-      document.getElementById('tbodyDetail').innerHTML = ''
+      document.getElementById('KembaliHst').style.display = 'block'
+      document.getElementById('listP2').textContent = this.forHistory[i].nama
+      document.getElementById('buttonSemua').style.display = 'none'
+      document.getElementById('historyPage').style.display = 'none'
+
+
+      
+      // if (bodyDetail.childNodes[0]) {
+      //   for (let i = 0; i < bodyDetail.childNodes.length; i++) {
+          
+      //     bodyDetail.removeChild(bodyDetail.childNodes[i])
+      //     console.log(i);
+      //   }
+        
+      // } 
       this.tmpIndex = i
       document.getElementById('detailHistoryPage').style.display = 'block'
       console.log(this.tmpIndex);
@@ -537,7 +575,29 @@ const app = Vue.createApp({
       // }
     },
 
+    kembaliHistory(){
+      
+      document.getElementById('listP2').textContent = 'History Pesanan'
+      document.getElementById('buttonSemua').style.display = 'block'
+      document.getElementById('historyPage').style.display = 'block'
+      let bodyDetail = document.getElementById('tbodyDetail').innerHTML = null
+      document.getElementById('KembaliHst').style.display = 'none'
+      // console.log('kembaliHistory');
+
+    },
+
     Kembali(){
+      // this.forHistory = this.getDataHstDalam()
+      // this.historyDetail = this.getDataHstLuar()
+
+      // Array.from(this.forHistory)
+      // Array.from(this.historyDetail)
+      // this.forHistory = localStorage.getItem('HistoryLuar')
+      // this.historyDetail = localStorage.getItem('HistoryDalam')
+      // console.log(this.historyDetail);
+      // console.log(this.forHistory);
+      document.getElementById('listFinal').textContent = null
+      // console.log(this.listBeli);
       // document.getElementById('detailHistoryPage').style.display = 'none'
       document.getElementById('history').style.display = 'none'
       document.getElementById('checkoutButton1').style.display = 'block'
@@ -597,7 +657,7 @@ const app = Vue.createApp({
       const notif = document.getElementById('notif').style.display = 'none'
 
       console.log('cart');
-    }
+    },
   }
 })
 

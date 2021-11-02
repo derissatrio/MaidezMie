@@ -389,7 +389,7 @@
       
       </section>
 
-      <section style="display: none; margin-top: 200px;" id="final">
+      <section style="display: none; margin-top: 100px;" id="final">
         <div class="container">
           <div class="row text-center">
             <div class="col">
@@ -397,6 +397,23 @@
               <p style="font-family: 'Montserrat';">Pelayan segera ke Meja kamu, <br> Siapkan uang sebesar <span style="color: darkgreen;">Rp. {{totalSemua.toLocaleString()}}</span> <br><br><br> Terima Kasih:)</p>
             </div>
           </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <table class="table">
+              <tbody id="listFinal">
+                <!-- <div id="listFinal"></div> -->
+                <!-- <tr>
+                  <td><th scope="row"> {{list.nama}} <br><span  style="color: green; font-family: 'Montserrat';">Rp. {{list.harga.toLocaleString()}} </span></th></td>
+                  <td>Level {{list.level}} <br> <span>Beli {{list.jumlah.toLocaleString()}} </span></span><td>
+                    <td style="color: rgb(0, 0, 0); font-weight: bold;">Total <br> Rp. {{list.total.toLocaleString()}}</td>
+                </tr> -->
+              </tbody>
+              </table>
+          </div>
+        </div>
+
 
           <!-- <div class="row text-center" style="margin-top: 200px;">
             <div class="col">
@@ -404,6 +421,7 @@
               <button @click="mieButton" type="button" class="btn btn-secondary">Kembali</button>
             </div>
           </div> -->
+        <div class="container">
 
           <div id="buttonSemua2" class="row text-center fixed-bottom shadow" style="padding: 10px;">
             <div class="col">
@@ -434,6 +452,7 @@
                   <td style="font-family: 'Montserrat';">{{ hst.nama }}</td>
                   <td style="font-family: 'Montserrat'; color: darkgreen;">Rp. {{hst.total.toLocaleString()}}</td>
                   <td><a @click="hstDetail(index)" href="#" class="btn btn-primary badge">Detail</a></td>
+                  <td><a @click="hstDelete(index)" href="#" class="btn btn-danger badge">Delete</a></td>
                 </tr>
               </tbody>
             </table>
@@ -467,6 +486,19 @@
             </tr> -->
           </tbody>
         </table>
+
+        <div id="KembaliHst" class="row text-center fixed-bottom shadow" style="padding: 10px;">
+          <div class="col">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <a href="#" @click="kembaliHistory" type="button" class="btn btn-secondary shadow shadow-lg" style="margin-right: 10px;">Kembali</a>
+              <!-- <a href="#" @click="minumanButton" type="button" class="btn btn-primary shadow buttonMinuman" style="margin-right: 20px;">Minuman</a> -->
+              <!-- <a href="#" @click="cartButton" type="button" class="btn btn-success shadow buttonCart"><i class="bi bi-cart-fill" style="margin-right: 10px;"></i>Keranjang</a> -->
+              
+              <!-- <button onclick="tombolMieFunction()" type="button" class="btn btn-warning shadow buttonMie">Mie</button>
+              <button onclick="tombolMinumanFunction()" type="button" class="btn btn-primary shadow buttonMinuman">Minuman</button> -->
+            </div>
+          </div>
+        </div>
         
         <!-- <table class="table">
           <tbody>
